@@ -1,0 +1,99 @@
+---
+title: "metabarcoding with dada2: environment installation"
+output: github_document
+---
+
+
+
+```{bash}
+sudo apt-get update -y 
+sudo apt-get install -y libbz2-dev
+sudo apt-get install -y liblzma-dev
+sudo apt-get install -y libglpk-dev
+```
+ 
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "3.12")
+```
+
+```{r}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("dada2", version = "3.12")
+```
+
+
+```{r}
+library(dada2); packageVersion("dada2")
+```
+
+```{r}
+BiocManager::install("phangorn")
+BiocManager::install("DECIPHER")
+```
+
+```{r}
+BiocManager::install("dplyr")
+BiocManager::install("reshape2")
+BiocManager::install("ade4")
+BiocManager::install("ggrepel")
+```
+
+```{r}
+BiocManager::install("caret")
+BiocManager::install("randomForest")
+BiocManager::install("vegan")
+BiocManager::install("phyloseqGraphTest")
+BiocManager::install("igraph")
+BiocManager::install("ggnetwork")
+BiocManager::install("nlme")
+BiocManager::install("DESeq2")
+BiocManager::install("structSSI")
+BiocManager::install("genefilter")
+BiocManager::install("PMA")
+```
+
+```{r}
+install.packages("gridExtra")
+```
+
+```{r}
+install.packages("ggplot2")
+```
+
+```{r}
+install.packages("Biostrings")
+```
+
+
+```{r}
+BiocManager::install("phyloseq")
+```
+
+
+```{r}
+library(usethis)
+```
+
+```{r}
+library(usethis)
+use_git_config(user.name = "Masmoudi-FZ", user.email = "fatizohra.masmoudi@gmail.com")
+```
+
+```{bash}
+wget https://pagesperso.univ-brest.fr/~maignien/teaching/M1-MFA/UE-Ecogenomique2/EcoG2_data_cc2.tar.gz
+```
+
+```{bash}
+tar xvzf EcoG2_data_cc2.tar.gz
+```
+
+```{bash}
+wget https://zenodo.org/record/3986799/files/silva_nr99_v138_train_set.fa.gz
+```
+
+```{bash}
+wget https://zenodo.org/record/3986799/files/silva_species_assignment_v138.fa.gz
+```
