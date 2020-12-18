@@ -273,32 +273,6 @@ head(taxa.print)
 # Combine data into a phyloseq object
 
 ``` r
-samples.out <- rownames(seqtabNoC)
-profondeur <- sapply(strsplit(samples.out, "D"), `[`, 1)
-date <- substr(profondeur,0,11)
-samdf <- data.frame(Profondeur=profondeur, Date=date)
-samdf$Profondeur[samdf$Date>11] <- c("Fond","Median","Surface")
-```
-
-    ## Warning in samdf$Profondeur[samdf$Date > 11] <- c("Fond", "Median", "Surface"):
-    ## number of items to replace is not a multiple of replacement length
-
-``` r
-samdf$Date[samdf$Profondeur>11] <- c("mars","sept")
-```
-
-    ## Warning in samdf$Date[samdf$Profondeur > 11] <- c("mars", "sept"): number of
-    ## items to replace is not a multiple of replacement length
-
-``` r
-rownames(samdf) <- samples.out
-```
-
-``` r
-write.csv(samdf,"samdf.csv")
-```
-
-``` r
 samdf <-read.table('~/CC2_Ecog2-FZM/samdf.csv', sep=',', header=TRUE, row.names=1)
 ```
 
@@ -320,7 +294,7 @@ Visualisez la diversité alpha par indice de Shannon et Simpson
 plot_richness(ps, x="Date", measures=c("Shannon", "Simpson"), color="Profondeur")
 ```
 
-![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 \#taxonomie filtring
 
@@ -350,13 +324,13 @@ table(tax_table(ps)[, "Phylum"], exclude = NULL)
     ##               Gemmatimonadota               Hydrogenedentes 
     ##                             8                             1 
     ##              Margulisbacteria Marinimicrobia (SAR406 clade) 
-    ##                            20                            80 
+    ##                            19                            80 
     ##                   Myxococcota                         NB1-j 
     ##                             5                             2 
     ##                  Nitrospinota                       PAUC34f 
     ##                            19                             4 
     ##               Planctomycetota                Proteobacteria 
-    ##                            32                           778 
+    ##                            32                           779 
     ##  SAR324 clade(Marine group B)              Thermoplasmatota 
     ##                            20                            25 
     ##             Verrucomicrobiota                          <NA> 
@@ -396,14 +370,14 @@ plyr::ddply(prevdf, "Phylum", function(df1){cbind(mean(df1$Prevalence),sum(df1$P
     ## 12                Fibrobacterota 2.500000    5
     ## 13               Gemmatimonadota 2.125000   17
     ## 14               Hydrogenedentes 1.000000    1
-    ## 15              Margulisbacteria 2.000000   40
+    ## 15              Margulisbacteria 2.000000   38
     ## 16 Marinimicrobia (SAR406 clade) 4.425000  354
     ## 17                   Myxococcota 2.400000   12
     ## 18                         NB1-j 1.500000    3
     ## 19                  Nitrospinota 4.263158   81
     ## 20                       PAUC34f 3.250000   13
     ## 21               Planctomycetota 3.437500  110
-    ## 22                Proteobacteria 4.221080 3284
+    ## 22                Proteobacteria 4.216945 3285
     ## 23  SAR324 clade(Marine group B) 4.450000   89
     ## 24              Thermoplasmatota 2.280000   57
     ## 25             Verrucomicrobiota 3.653846  285
@@ -420,7 +394,7 @@ ggplot(prevdf1, aes(TotalAbundance, Prevalence / nsamples(ps),color=Phylum)) +
   facet_wrap(~Phylum) + theme(legend.position="none")
 ```
 
-![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 ``` r
 ggsave("pcoa.jpg", width = 250, height = 100, units = "mm")
@@ -440,7 +414,7 @@ plot_ordination(pslog, out.wuf.log, color = "Profondeur", shape="Date") +
   labs(col = "Profondeur",shape= "Date")
 ```
 
-![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 ``` r
 ggsave("pcoa.jpg", width = 150, height = 100, units = "mm")
@@ -455,7 +429,7 @@ ps.top20 <- prune_taxa(top20, ps.top20)
 plot_bar(ps.top20, x="Date", fill="Genus") + facet_wrap(~Profondeur, scales="free_x")
 ```
 
-![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 \#Visualiser les biomarqueurs de saison (hivers et ete)
 
@@ -466,7 +440,7 @@ ps.top20 <- prune_taxa(top20, ps.top20)
 plot_bar(ps.top20, x="Profondeur", fill="Genus") + facet_wrap(~Date, scales="free_x")
 ```
 
-![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](CC2_Ecog2_FZM_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 ``` r
 ggsave("abondance1.jpg", width = 150, height = 100, units = "mm")

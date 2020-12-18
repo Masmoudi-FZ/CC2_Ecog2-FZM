@@ -153,19 +153,6 @@ head(taxa.print)
 ```
 # Combine data into a phyloseq object
 
-```{r}
-samples.out <- rownames(seqtabNoC)
-profondeur <- sapply(strsplit(samples.out, "D"), `[`, 1)
-date <- substr(profondeur,0,11)
-samdf <- data.frame(Profondeur=profondeur, Date=date)
-samdf$Profondeur[samdf$Date>11] <- c("Fond","Median","Surface")
-samdf$Date[samdf$Profondeur>11] <- c("mars","sept")
-rownames(samdf) <- samples.out
-```
-
-```{r}
-write.csv(samdf,"samdf.csv")
-```
 
 ```{r}
 samdf <-read.table('~/CC2_Ecog2-FZM/samdf.csv', sep=',', header=TRUE, row.names=1)
